@@ -127,7 +127,7 @@ const animateCircles = ctx => {
   ctx.circles.forEach(circle => {
     circle.draw()
   })
-  requestAnimationFrame(animateCircles.bind(this, ctx))
+  // requestAnimationFrame(animateCircles.bind(this, ctx))
 }
 
 export const CausesCanvas = () => {

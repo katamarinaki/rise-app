@@ -1,5 +1,6 @@
 import React from 'react'
-import { CausesCanvas } from '@src/features/cause-selector/causes-canvas'
+import { CausesContainer } from '@src/features/cause-selector/causes-container'
+
 export const CausesScreen = () => {
-  return <CausesCanvas />
+  return <CausesContainer />
 }
