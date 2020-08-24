@@ -1,41 +1,9 @@
 import { Container } from '@src/shared/container'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Button, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { BubbleChart } from './bubble-chart'
 import { useStoreon } from 'storeon/react'
-
-const DEFAULT_DATA = [
-  {
-    name: '#Trump',
-    color: 'gray',
-    value: 90,
-    id: '1',
-    isSelected: false,
-  },
-  {
-    name: '#ChicagoRiots',
-    color: 'pink',
-    value: 60,
-    id: '2',
-    isSelected: false,
-  },
-  { name: '#BLM', color: 'red', value: 30, id: '3', isSelected: false },
-  {
-    name: 'Coronavirus',
-    color: 'purple',
-    value: 80,
-    id: '4',
-    isSelected: false,
-  },
-  {
-    name: 'Belarus',
-    color: 'green',
-    value: 40,
-    id: '5',
-    isSelected: false,
-  },
-]
 
 export const CausesContainer = () => {
   const { width, height } = useWindowDimensions()
@@ -46,7 +14,7 @@ export const CausesContainer = () => {
   }, [])
 
   const animateCircle = () => {
-    const updatedCause = trendingCauses[1]
+    const updatedCause = trendingCauses[0]
     dispatch('trendingCauses/updateValue', {
       id: updatedCause.id,
       value: updatedCause.value + 1,
@@ -57,13 +25,7 @@ export const CausesContainer = () => {
   }
 
   const onBubbleSelect = bubble => {
-    const newData = trendingCauses.map(item => {
-      if (item.id === bubble.data.id) {
-        item.isSelected = !item.isSelected
-      }
-      return item
-    })
-    // setData(newData)
+    dispatch('trendingCauses/selectCause', bubble.data.id)
   }
 
   const selectedData = useMemo(() => {

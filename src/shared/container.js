@@ -4,7 +4,7 @@ import { View } from 'react-native'
 export const Container = props => (
   <View
     style={[
-      { flex: 1, backgroundColor: 'white', padding: 16 },
+      { flex: 1, backgroundColor: '#FBFBFB', padding: 16 },
       props.style ? [...props.style] : {},
     ]}
   >

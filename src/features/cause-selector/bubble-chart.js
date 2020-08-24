@@ -28,7 +28,7 @@ export const BubbleChart = props => {
     const root = d3
       .pack()
       .size([width - 2, height - 2])
-      .padding(10)(d3.hierarchy({ children: dataSet }).sum(d => d.value))
+      .padding(30)(d3.hierarchy({ children: dataSet }).sum(d => d.value))
 
     return root.leaves().map(leaf => {
       const fontSize = generateFontSize(leaf.r)
@@ -40,15 +40,23 @@ export const BubbleChart = props => {
         >
           <Circle
             {...circleProps}
+            r={leaf.r + 10}
+            fill={leaf.data.color}
+            fillOpacity={0.5}
+          />
+          <Circle
+            {...circleProps}
             r={leaf.r}
             fill={leaf.data.color}
-            stroke={leaf.data.isSelected ? '#000' : leaf.data.color}
+            stroke={leaf.data.isSelected ? '#fff' : leaf.data.color}
             strokeWidth={3}
           />
+
           <SVGText
             {...textProps}
             fill="#fff"
             fontSize={fontSize}
+            fontWeight={leaf.data.isSelected ? 'bold' : 'normal'}
             x="0"
             y={leaf.r / 8}
             textAnchor="middle"
