@@ -19,12 +19,4 @@ export default initialCauses => store => {
     const selectedCauses = newCauses.filter(cause => cause.isSelected)
     return { trendingCauses: newCauses, selectedCauses }
   })
-  // store.on('users/add', async (state, user) => {
-  //   try {
-  //     await api.addUser(user)
-  //     store.dispatch('users/save', user)
-  //   } catch (e) {
-  //     store.dispatch('errors/server-error')
-  //   }
-  // })
 }
