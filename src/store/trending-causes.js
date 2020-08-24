@@ -16,7 +16,8 @@ export default initialCauses => store => {
     const newCauses = trendingCauses
     const index = newCauses.findIndex(cause => cause.id === id)
     newCauses[index].isSelected = !newCauses[index].isSelected
-    return { trendingCauses: newCauses }
+    const selectedCauses = newCauses.filter(cause => cause.isSelected)
+    return { trendingCauses: newCauses, selectedCauses }
   })
   // store.on('users/add', async (state, user) => {
   //   try {
