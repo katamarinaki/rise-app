@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback } from 'react'
 import * as d3 from 'd3'
 import Svg, { Circle, G, Text as SVGText } from 'react-native-svg'
 
@@ -24,7 +24,7 @@ export const BubbleChart = props => {
     return size
   }, [])
 
-  const bubbles = useMemo(() => {
+  const renderBubbles = () => {
     const root = d3
       .pack()
       .size([width - 2, height - 2])
@@ -58,11 +58,11 @@ export const BubbleChart = props => {
         </G>
       )
     })
-  }, [dataSet])
+  }
 
   return (
     <Svg width={width} height={height}>
-      {bubbles}
+      {renderBubbles()}
     </Svg>
   )
 }

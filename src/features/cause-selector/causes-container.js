@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { BubbleChart } from './bubble-chart'
+import { useStoreon } from 'storeon/react'
 
 const DEFAULT_DATA = [
   {
@@ -38,38 +39,36 @@ const DEFAULT_DATA = [
 
 export const CausesContainer = () => {
   const { width, height } = useWindowDimensions()
-  const [data, setData] = useState(DEFAULT_DATA)
+  const { dispatch, trendingCauses } = useStoreon('trendingCauses')
 
   useEffect(() => {
-    // animateCircle()
+    animateCircle()
   }, [])
 
-  // const animateCircle = () => {
-  //   const newData = data.map((item, index) => {
-  //     if (index === 4) {
-  //       item.value += 0.5
-  //     }
-  //     return item
-  //   })
-  //   setData(newData)
-  //   if (newData[4].value < 200) {
-  //     requestAnimationFrame(animateCircle)
-  //   }
-  // }
+  const animateCircle = () => {
+    const updatedCause = trendingCauses[1]
+    dispatch('trendingCauses/updateValue', {
+      id: updatedCause.id,
+      value: updatedCause.value + 1,
+    })
+    if (updatedCause.value < 200) {
+      // requestAnimationFrame(animateCircle)
+    }
+  }
 
   const onBubbleSelect = bubble => {
-    const newData = data.map(item => {
+    const newData = trendingCauses.map(item => {
       if (item.id === bubble.data.id) {
         item.isSelected = !item.isSelected
       }
       return item
     })
-    setData(newData)
+    // setData(newData)
   }
 
   const selectedData = useMemo(() => {
-    return data.filter(item => item.isSelected === true)
-  }, [data])
+    return trendingCauses.filter(item => item.isSelected === true)
+  }, [trendingCauses])
 
   return (
     <Container>
@@ -81,7 +80,7 @@ export const CausesContainer = () => {
       <BubbleChart
         width={width}
         height={height - 200}
-        dataSet={data}
+        dataSet={trendingCauses}
         onBubblePress={onBubbleSelect}
       />
       <Button
