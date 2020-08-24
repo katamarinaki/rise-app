@@ -1,3 +1,4 @@
+import { Container } from '@src/shared/container'
 import React, { useEffect, useMemo, useState } from 'react'
 import { Button, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
@@ -40,21 +41,21 @@ export const CausesContainer = () => {
   const [data, setData] = useState(DEFAULT_DATA)
 
   useEffect(() => {
-    animateCircle()
+    // animateCircle()
   }, [])
 
-  const animateCircle = () => {
-    const newData = data.map((item, index) => {
-      if (index === 4) {
-        item.value += 0.5
-      }
-      return item
-    })
-    setData(newData)
-    if (newData[4].value < 200) {
-      requestAnimationFrame(animateCircle)
-    }
-  }
+  // const animateCircle = () => {
+  //   const newData = data.map((item, index) => {
+  //     if (index === 4) {
+  //       item.value += 0.5
+  //     }
+  //     return item
+  //   })
+  //   setData(newData)
+  //   if (newData[4].value < 200) {
+  //     requestAnimationFrame(animateCircle)
+  //   }
+  // }
 
   const onBubbleSelect = bubble => {
     const newData = data.map(item => {
@@ -69,8 +70,9 @@ export const CausesContainer = () => {
   const selectedData = useMemo(() => {
     return data.filter(item => item.isSelected === true)
   }, [data])
+
   return (
-    <Container style={{ flex: 1 }}>
+    <Container>
       <TitleView>
         <Title>
           Please select at least one cause that you find important for you
@@ -90,11 +92,6 @@ export const CausesContainer = () => {
     </Container>
   )
 }
-
-const Container = styled.View`
-  flex: 1;
-  background-color: #e3eeff;
-`
 
 const TitleView = styled.View`
   padding: 16px;

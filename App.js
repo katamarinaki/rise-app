@@ -1,22 +1,18 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
-import { CausesScreen } from './src/screens/causes-screen'
-import styled from 'styled-components/native'
+import { SafeAreaView, StatusBar } from 'react-native'
+import 'react-native-gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
+import { RootNavigator } from '@src/navigators/root-navigator'
 
-const App = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <Container>
-        <CausesScreen />
-      </Container>
-    </>
-  )
-}
-
-const Container = styled.SafeAreaView`
-  flex: 1;
-  background-color: white;
-`
+const App = () => (
+  <>
+    <StatusBar barStyle="dark-content" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </SafeAreaView>
+  </>
+)
 
 export default App
