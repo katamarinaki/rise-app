@@ -56,7 +56,7 @@ export const BubbleChart = props => {
             {...textProps}
             fill="#fff"
             fontSize={fontSize}
-            fontWeight={leaf.data.isSelected ? 'bold' : '500'}
+            fontWeight={leaf.data.isSelected ? 'bold' : '400'}
             x="0"
             y={leaf.r / 8}
             textAnchor="middle"

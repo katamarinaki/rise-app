@@ -1,13 +1,11 @@
 import { Container } from '@src/shared/container'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Button, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { BubbleChart } from './bubble-chart'
 import { useStoreon } from 'storeon/react'
 import WS from 'react-native-websocket'
 import { Loader } from '@src/shared/loader'
-
-const keywords = ['Belarus', 'Trump', 'Monica']
 
 export const CausesContainer = () => {
   const wsRef = useRef(null)
@@ -19,7 +17,7 @@ export const CausesContainer = () => {
   )
 
   useEffect(() => {
-    if (trendingCauses.length === keywords.length && !isLoaded) {
+    if (trendingCauses.length && !isLoaded) {
       animate()
       setIsLoaded(true)
     }
@@ -61,16 +59,9 @@ export const CausesContainer = () => {
       <WS
         ref={wsRef}
         url="ws://localhost:5000/twitter"
-        onOpen={() => {
-          keywords.forEach(keyword => {
-            wsRef.current.send(
-              JSON.stringify({
-                command: 'getTweets',
-                args: { q: keyword, count: '10' },
-              }),
-            )
-          })
-        }}
+        onOpen={() =>
+          wsRef.current.send(JSON.stringify({ command: 'getTweets' }))
+        }
         onMessage={message => dispatch('trendingCauses/newData', message)}
         onError={console.log}
         onClose={console.log}
