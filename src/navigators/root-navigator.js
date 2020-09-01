@@ -1,8 +1,9 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { causes, init } from '@src/lib/routes'
+import { cards, causes, init } from '@src/lib/routes'
 import { InitScreen } from '@src/screens/init-screen'
 import { CausesScreen } from '@src/screens/causes-screen'
+import { CardsScreen } from '@src/screens/cards-screen'
 
 const Stack = createStackNavigator()
 
@@ -18,6 +19,11 @@ export const RootNavigator = () => (
     <Screen
       name={causes}
       component={CausesScreen}
+      options={{ headerShown: false }}
+    />
+    <Screen
+      name={cards}
+      component={CardsScreen}
       options={{ headerShown: false }}
     />
   </Navigator>

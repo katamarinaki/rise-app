@@ -6,11 +6,15 @@ import { BubbleChart } from './bubble-chart'
 import { useStoreon } from 'storeon/react'
 import WS from 'react-native-websocket'
 import { Loader } from '@src/shared/loader'
+import { useNavigation } from '@react-navigation/native'
+import { cards } from '@src/lib/routes'
 
 export const CausesContainer = () => {
   const wsRef = useRef(null)
   const { width, height } = useWindowDimensions()
   const [isLoaded, setIsLoaded] = useState(false)
+
+  const navigation = useNavigation()
   const { dispatch, trendingCauses, selectedCauses } = useStoreon(
     'trendingCauses',
     'selectedCauses',
@@ -23,13 +27,21 @@ export const CausesContainer = () => {
     }
   }, [isLoaded, trendingCauses])
 
-  const animate = useCallback(() => {
+  const animate = () => {
+    // console.log('animate')
     dispatch('trendingCauses/update')
     requestAnimationFrame(animate)
-  }, [])
+  }
 
   const onBubbleSelect = useCallback(bubble => {
     dispatch('trendingCauses/selectCause', bubble.data.id)
+  }, [])
+
+  const onButtonPress = useCallback(() => {
+    if (wsRef.current) {
+      wsRef.current.send(JSON.stringify({ command: 'close' }))
+    }
+    navigation.navigate(cards)
   }, [])
 
   return (
@@ -48,7 +60,7 @@ export const CausesContainer = () => {
             onBubblePress={onBubbleSelect}
           />
           <Button
-            onPress={() => {}}
+            onPress={onButtonPress}
             title="Continue"
             disabled={selectedCauses.length === 0}
           />
@@ -63,9 +75,6 @@ export const CausesContainer = () => {
           wsRef.current.send(JSON.stringify({ command: 'getTweets' }))
         }
         onMessage={message => dispatch('trendingCauses/newData', message)}
-        onError={console.log}
-        onClose={console.log}
-        // reconnect
       />
     </>
   )
