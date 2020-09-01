@@ -28,7 +28,6 @@ export const CausesContainer = () => {
   }, [isLoaded, trendingCauses])
 
   const animate = () => {
-    // console.log('animate')
     dispatch('trendingCauses/update')
     requestAnimationFrame(animate)
   }
