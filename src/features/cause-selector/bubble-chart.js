@@ -27,7 +27,7 @@ export const BubbleChart = props => {
   const renderBubbles = () => {
     const root = d3
       .pack()
-      .size([width - 2, height - 2])
+      .size([width - 30, height - 30])
       .padding(30)(d3.hierarchy({ children: dataSet }).sum(d => d.value))
 
     return root.leaves().map(leaf => {
@@ -56,7 +56,7 @@ export const BubbleChart = props => {
             {...textProps}
             fill="#fff"
             fontSize={fontSize}
-            fontWeight={leaf.data.isSelected ? 'bold' : 'normal'}
+            fontWeight={leaf.data.isSelected ? 'bold' : '500'}
             x="0"
             y={leaf.r / 8}
             textAnchor="middle"

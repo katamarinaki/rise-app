@@ -7,7 +7,7 @@ import { useStoreon } from 'storeon/react'
 import WS from 'react-native-websocket'
 import { Loader } from '@src/shared/loader'
 
-const keywords = ['Belarus', 'Trump']
+const keywords = ['Belarus', 'Trump', 'Monica']
 
 export const CausesContainer = () => {
   const wsRef = useRef(null)
@@ -25,19 +25,10 @@ export const CausesContainer = () => {
     }
   }, [isLoaded, trendingCauses])
 
-  const needUpdate = useMemo(() => {
-    return (
-      trendingCauses.filter(cause => cause.value === cause.maxValue).length !==
-      trendingCauses.length
-    )
-  }, [trendingCauses])
-
   const animate = useCallback(() => {
-    if (needUpdate) {
-      dispatch('trendingCauses/update')
-      requestAnimationFrame(animate)
-    }
-  }, [needUpdate])
+    dispatch('trendingCauses/update')
+    requestAnimationFrame(animate)
+  }, [])
 
   const onBubbleSelect = useCallback(bubble => {
     dispatch('trendingCauses/selectCause', bubble.data.id)
